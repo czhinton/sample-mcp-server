@@ -41,7 +41,8 @@ app.post("/run/add", (req, res) => {
 });
 
 // ---- Start server ----
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`✅ MCP Server running at http://localhost:${PORT}`);
+  console.log(`✅ MCP Server running on port ${PORT}`);
 });
+
