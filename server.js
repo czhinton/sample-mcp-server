@@ -27,6 +27,27 @@ app.get("/tools", (req, res) => {
   ]);
 });
 
+
+// ---- Generic Call Tool ----
+app.post("/call-tool", async (req, res) => {
+  const { tool, args } = req.body;
+
+  try {
+    if (tool === "echoTool") {
+      return res.json({ result: `You said: ${args.text}` });
+    }
+
+    if (tool === "addNumbers") {
+      const sum = (Number(args.a) || 0) + (Number(args.b) || 0);
+      return res.json({ result: `Sum of ${args.a} + ${args.b} = ${sum}` });
+    }
+
+    return res.status(400).json({ error: "Unknown tool" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ---- Tool 1: Echo ----
 app.post("/run/echo", (req, res) => {
   const { text } = req.body;
@@ -45,4 +66,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ MCP Server running on port ${PORT}`);
 });
+
 
