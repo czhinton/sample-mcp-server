@@ -8,20 +8,23 @@ app.use(cors());
 
 // ---- MCP metadata ----
 app.get("/tools", (req, res) => {
-  res.json({
-    tools: [
-      {
-        name: "echoTool",
-        description: "Echoes back the input text",
-        endpoint: "/run/echo"
-      },
-      {
-        name: "addNumbers",
-        description: "Adds two numbers",
-        endpoint: "/run/add"
+  res.json([
+    {
+      name: "echoTool",
+      description: "Echoes back the input text",
+      args: {
+        text: { type: "string", description: "Text to echo back" }
       }
-    ]
-  });
+    },
+    {
+      name: "addNumbers",
+      description: "Adds two numbers",
+      args: {
+        a: { type: "number", description: "First number" },
+        b: { type: "number", description: "Second number" }
+      }
+    }
+  ]);
 });
 
 // ---- Tool 1: Echo ----
